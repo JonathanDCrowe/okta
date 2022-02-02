@@ -3,13 +3,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Okta.AspNet;
 using Owin;
-using System;
 using System.Configuration;
-using System.Threading.Tasks;
 
-[assembly: OwinStartup(typeof(WebApplication1.Startup))]
+[assembly: OwinStartup(typeof(MvcOktaExample.Startup))]
 
-namespace WebApplication1
+namespace MvcOktaExample
 {
     public class Startup
     {

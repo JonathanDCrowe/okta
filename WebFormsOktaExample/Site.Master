@@ -7,23 +7,18 @@
     <title>WebForms</title>
 </head>
 <body>
-    <form runat="server">
+
         <asp:LoginView runat="server" ViewStateMode="Disabled">
             <AnonymousTemplate>
                 <a id="loginButton" href="Login.aspx" runat="server">Sign In</a>
             </AnonymousTemplate>
             <LoggedInTemplate>
                 <%= Context.User.Identity.Name %>
-                <asp:LoginStatus runat="server"
-                    ID="logoutButton"
-                    LogoutAction="Redirect"
-                    LogoutText="Sign Out"
-                    LogoutPageUrl="~/SignOut.ashx" />
+                <a id="signOutButton" href="SignOut.ashx" runat="server">Sign Out</a>
             </LoggedInTemplate>
         </asp:LoginView>
 
-        <asp:ContentPlaceHolder ID="BodyContent" runat="server">
-        </asp:ContentPlaceHolder>
-    </form>
+    <asp:ContentPlaceHolder ID="BodyContent" runat="server">
+    </asp:ContentPlaceHolder>
 </body>
 </html>

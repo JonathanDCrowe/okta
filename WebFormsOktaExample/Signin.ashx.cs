@@ -1,9 +1,8 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
 using System.Web;
+using System.Linq;
 
 namespace WebFormsOktaExample
 {
@@ -15,14 +14,23 @@ namespace WebFormsOktaExample
 
         public void ProcessRequest(HttpContext context)
         {
-            var properties = new AuthenticationProperties
+            if (context.User.Identity.IsAuthenticated == false)
             {
-                RedirectUri = "/"
-            };
+                var properties = new AuthenticationProperties
+                {
+                    RedirectUri = "/"
+                };
 
-            context.GetOwinContext().Authentication.Challenge(
-                properties,
-                OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                if (context.Request.HttpMethod == HttpMethod.Post.Method
+                    && context.Request.Form["sessionToken"] != null)
+                {
+                    properties.Dictionary.Add("sessionToken", context.Request.Form["sessionToken"]);
+                }
+
+                context.GetOwinContext().Authentication.Challenge(
+                    properties,
+                    OpenIdConnectAuthenticationDefaults.AuthenticationType);
+            }
         }
 
         public bool IsReusable

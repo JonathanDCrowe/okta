@@ -9,17 +9,24 @@
 
     <div id="widget"></div>
 
+    <form runat="server" method="POST" action="Signin.ashx" id="oktaSignInForm">
+        <input type="hidden" name="sessionToken" id="oktaSessionToken" />
+    </form>
+
     <script type="text/javascript">
-        const signIn = new OktaSignIn({
+        const oktaSignIn = new OktaSignIn({
             baseUrl: '<%= ConfigurationManager.AppSettings["okta:OktaDomain"] %>',
             features: {
                 idpDiscovery: true
             },
             idpDiscovery: {
-                requestContext: 'https://localhost:44303/signin.ashx'
+                requestContext: 'https://localhost:44304/signin.ashx'
             }
         });
-        signIn.renderEl({ el: '#widget' }, (res) => {
+
+        oktaSignIn.renderEl({ el: '#widget' }, (res) => {
+            $("#oktaSessionToken").val(res.session.token);
+            $("#oktaSignInForm").submit();
         }, (err) => {
             console.error(err);
         });

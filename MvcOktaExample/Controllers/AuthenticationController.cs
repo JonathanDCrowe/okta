@@ -1,11 +1,9 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Okta.AspNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+using System.Net.Http;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace MvcOktaExample.Controllers
@@ -17,16 +15,29 @@ namespace MvcOktaExample.Controllers
             return View();
         }
 
-        public void SignIn()
+        public ActionResult SignIn()
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
             {
+                var properties = new AuthenticationProperties
+                {
+                    RedirectUri = "/"
+                };
+
+                if (Request.HttpMethod == HttpMethod.Post.Method
+                    && Request.Form["sessionToken"] != null)
+                {
+                    AntiForgery.Validate();
+                    properties.Dictionary.Add("sessionToken", Request.Form["sessionToken"]);
+                }
+
                 HttpContext.GetOwinContext().Authentication.Challenge(
+                    properties,
                     OktaDefaults.MvcAuthenticationType);
-                //return new HttpUnauthorizedResult();
+                return new HttpUnauthorizedResult();
             }
 
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
