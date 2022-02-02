@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebFormsOktaExample.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>WebForms</title>
+</head>
+<body>
+    <form runat="server">
+        <asp:LoginView runat="server" ViewStateMode="Disabled">
+            <AnonymousTemplate>
+                <a id="loginButton" href="Login.aspx" runat="server">Sign In</a>
+            </AnonymousTemplate>
+            <LoggedInTemplate>
+                <%= Context.User.Identity.Name %>
+                <asp:LoginStatus runat="server"
+                    ID="logoutButton"
+                    LogoutAction="Redirect"
+                    LogoutText="Sign Out"
+                    LogoutPageUrl="~/SignOut.ashx" />
+            </LoggedInTemplate>
+        </asp:LoginView>
+
+        <asp:ContentPlaceHolder ID="BodyContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
