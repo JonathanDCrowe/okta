@@ -8,5 +8,11 @@ namespace MvcOktaExample.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Account()
+        {
+            return View();
+        }
     }
 }

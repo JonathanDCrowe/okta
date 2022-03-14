@@ -10,7 +10,7 @@
 
         <asp:LoginView runat="server" ViewStateMode="Disabled">
             <AnonymousTemplate>
-                <a id="loginButton" href="Login.aspx" runat="server">Sign In</a>
+                <a id="loginButton" href="Signin.ashx" runat="server">Sign In</a>
             </AnonymousTemplate>
             <LoggedInTemplate>
                 <%= Context.User.Identity.Name %>

@@ -23,7 +23,7 @@ namespace MvcOktaExample
                 ClientSecret = ConfigurationManager.AppSettings["okta:ClientSecret"],
                 RedirectUri = ConfigurationManager.AppSettings["okta:RedirectUri"],
                 PostLogoutRedirectUri = ConfigurationManager.AppSettings["okta:PostLogoutRedirectUri"],
-                LoginMode = LoginMode.SelfHosted,
+                LoginMode = LoginMode.SelfHosted, 
             });
         }
     }

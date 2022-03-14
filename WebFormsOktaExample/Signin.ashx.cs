@@ -1,8 +1,6 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
-using System.Net.Http;
 using System.Web;
-using System.Linq;
 
 namespace WebFormsOktaExample
 {
@@ -18,14 +16,8 @@ namespace WebFormsOktaExample
             {
                 var properties = new AuthenticationProperties
                 {
-                    RedirectUri = "/"
+                    RedirectUri = "/Account.aspx"
                 };
-
-                if (context.Request.HttpMethod == HttpMethod.Post.Method
-                    && context.Request.Form["sessionToken"] != null)
-                {
-                    properties.Dictionary.Add("sessionToken", context.Request.Form["sessionToken"]);
-                }
 
                 context.GetOwinContext().Authentication.Challenge(
                     properties,
